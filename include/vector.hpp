@@ -62,4 +62,26 @@ public:
 			insert(_ptr[i]);
 		}
 	}
+	 node_t* root() const
+    	{
+        	return root_;
+    	}
 	
+	bool find(T value) const
+	    {
+		if (root_ == nullptr)
+		{
+		    return false;
+		}
+		else
+		{
+		    node_t* node = root_;
+		    while (node != nullptr)
+		    {
+			if (node->value == value) return true;
+			else if (node->value < value) node = node->right;
+			else if (node->value > value) node = node->left;
+		    }
+		    return false;
+		}
+	    }
