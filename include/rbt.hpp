@@ -204,4 +204,47 @@ public:
 			}
 		}
 	}
+	 void insert_case1(node_t * node){
+        	 if(node->parent == nullptr) node->color = false;
+        	 else insert_case2(node);
+         }
     
+    void insert_case2(node_t * node){
+        if(node->parent->color == false) return;
+        else insert_case3(node);
+    }
+    
+    void insert_case3(node_t * node){
+        node_t * unc = uncle(node), 
+	node_t * gp;
+        if(unc != nullptr && unc->color == true){
+            node->parent->color = false;
+            unc->color = false;
+            gp = gparent(node);
+            gp->color = true;
+            insert_case1(gp);
+        }
+        else insert_case4(node);
+    }
+    
+    void insert_case4(node_t * node){
+        node_t * gp = gparent(node);
+        if(node == node->parent->right && node->parent == gp->left){
+            rotate_left(node->parent);
+            node= node->left;
+        }
+        else if(node == node->parent->left && node->parent == gp->right){
+            rotate_right(node->parent);
+            node=node->right;
+        }
+        insert_case5(node);
+    }
+    
+    void insert_case5(node_t * node){
+        node_t * gp= gparent(node);
+        node->parent->color = false;
+        gp->color = true;
+        if(node ==node->parent->left && gp->left == node->parent) rotate_right(gp);
+        else rotate_left(gp);
+    }
+};
