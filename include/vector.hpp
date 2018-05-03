@@ -152,6 +152,56 @@ public:
         if(node->parent == nullptr) root_ = newnode;
         node->parent = newnode;
         newnode->left = node;
-    }
-    
+   	}
+    	void tree_t<T>:: insert(T value){
+		node_t * node=new node_t;
+		node->right=nullptr;
+		node->left=nullptr;
+		node->value=value;
+		node->parent = nullptr;
+		node->color = false;
+		if (root_==nullptr){
+			root_=node;
+			return;
+		}
+		node_t * branch=root_;
+		while (branch!=nullptr){   
+			if(branch->value == value){
+			return;
+			}
+			else if(branch->value<value)
+			{
+				if(branch->right!=nullptr){
+					branch->right = new node_t;
+					branch->right->parent = branch;
+					branch=branch->right;
+					branch->value = value;
+					branch->color = true;
+					branch->left = nullptr;
+					branch->right = nullptr;
+					insert_case1(branch);
+					return;
+				}
+				else {
+					branch->right=node;
+				}
+			}
+			else if(branch->value>value){
+				if(branch->left != nullptr){
+					branch->left = new node_t;
+					branch->left->parent = branch;
+					branch=branch->left;
+					branch->value = value;
+					branch->color = true;
+					branch->left = nullptr;
+					branch->right = nullptr;
+					insert_case1(branch);
+					return;
+				}
+				else{
+					branch->left=node;
+				}
+			}
+		}
+	}
     
