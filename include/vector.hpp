@@ -106,3 +106,16 @@ public:
 		}
 		else std::cout<<"incorrect operation";	
 		}
+	 node_t * gparent(node_t * node){
+		if(node!= nullptr && node->parent != nullptr){
+		    return node->parent->parent;
+		}
+		else return nullptr;
+	    }
+
+	    node_t * uncle(node_t * node){
+		node_t * gparent = gparent(node);
+		if(gparent == nullptr) return nullptr;
+		if(node->parent == gparent->left) return gparent->right;
+		else return gparent->left;
+	    }
