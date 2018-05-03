@@ -1,151 +1,86 @@
 #include <catch.hpp>
 #include <sstream>
-
 #include "rbt.hpp"
-
-TEST_CASE("creating vector")
+TEST_CASE("creating tree")
 {
-	vector_t<float> vector;
-	REQUIRE( vector.size() == 0 );
-	REQUIRE( vector.capacity() == 0 );
+    tree_t<int> tree;
+    REQUIRE(tree.root()==nullptr);
 }
-
-TEST_CASE("copying vector")
+TEST_CASE("add")
 {
-	vector_t<int> vector;
-	vector.push_back(1);
-
-	vector_t<int> copy(vector);
-	REQUIRE( copy == vector );
+    tree_t<int> tree;
+    tree.insert(2);
+    tree.insert(1);
+    tree.insert(3);
+    tree.insert(4);
+    std::string output {
+            "------4\n"
+        "---3\n"
+        "2\n"
+        "---1\n"
+    };
+    std::ostringstream ostream;
+    tree.print(ostream,0,tree.root());
+    REQUIRE( ostream.str() == output );
 }
-
-TEST_CASE("assigning vector")
+TEST_CASE("?")
 {
-	vector_t<int> vector1;
-	vector_t<int> vector2;
-
-	vector1.push_back(1);
-	vector2.push_back(2);
-
-	vector1 = vector2;
-	REQUIRE( vector1 == vector2 );
+    tree_t<int> tree;
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(4);
+    tree.insert(5);
+    REQUIRE( tree.find(6)==false );
+    REQUIRE( tree.find(2)==true );
 }
-
-TEST_CASE("equaling vector")
+TEST_CASE("op+?")
 {
-	vector_t<short> vector1;
-	vector_t<short> vector2;
-
-	vector1.push_back(1);
-	vector2.push_back(1);
-
-	REQUIRE( vector1 == vector2 );
-
-	vector1.push_back(2);
-	REQUIRE( vector1 != vector2 );
+    tree_t<int> tree;
+    tree.oper1('+',2);
+    tree.oper1('+',1);
+    tree.oper1('+',3);
+    std::string output{
+        "---3\n"
+        "2\n"
+        "---1"
+    };
+    std::ostringstream ostream;
+    tree.oper2('?',2,ostream);
+    REQUIRE( ostream.str()== "true" );
+    std::ostringstream ostream1;
+    tree.oper2('?',5,ostream1);
+    REQUIRE( ostream1.str()== "false" );
 }
-
-TEST_CASE("indexing vector")
+TEST_CASE("op+=")
 {
-	vector_t<double> vector;
-
-	vector.push_back(1.1);
-
-	REQUIRE( vector[0] == 1.1 );
-
-	vector_t<double> const copy(vector);
-	REQUIRE( copy[0] == 1.1 );
+    tree_t<int> tree;
+    tree.oper1('+',2);
+    tree.oper1('+',1);
+    tree.oper1('+',3);
+    std::string output{
+        "---3\n"
+        "2\n"
+        "---1\n"
+    };
+    std::ostringstream ostream;
+    tree.oper2('=',0,ostream);
+    REQUIRE( ostream.str()== output );
 }
-
-TEST_CASE("pushing elements")
+TEST_CASE("ravenstvo")
 {
-	vector_t<short> vector;
-
-	vector.push_back(1);
-	REQUIRE( vector.size() == 1 );
-	REQUIRE( vector.capacity() == 1 );
-
-	vector.push_back(2);
-	REQUIRE( vector.size() == 2 );
-	REQUIRE( vector.capacity() == 2 );
-
-	vector.push_back(3);
-	REQUIRE( vector.size() == 3 );
-	REQUIRE( vector.capacity() == 4 );
-
-	vector.push_back(4);
-	REQUIRE( vector.size() == 4 );
-	REQUIRE( vector.capacity() == 4 );
-
-	vector.push_back(5);
-	REQUIRE( vector.size() == 5 );
-	REQUIRE( vector.capacity() == 8 );
-}
-
-TEST_CASE("poping elements")
-{
-	vector_t<int> vector;
-
-	vector.push_back(1);
-	vector.push_back(2);
-	vector.push_back(3);
-	vector.push_back(4);
-	vector.push_back(5);
-	vector.push_back(6);
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 5 );
-	REQUIRE( vector.capacity() == 8 );
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 4 );
-	REQUIRE( vector.capacity() == 8 );
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 3 );
-	REQUIRE( vector.capacity() == 8 );
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 2 );
-	REQUIRE( vector.capacity() == 4 );
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 1 );
-	REQUIRE( vector.capacity() == 2 );
-
-	vector.pop_back();
-	REQUIRE( vector.size() == 0 );
-	REQUIRE( vector.capacity() == 1 );
-}
-TEST_CASE("at_1")
-{
-	vector_t<int> vector;
-	vector.push_back(1);
-
-	REQUIRE( vector.at(0) == 1 );
-}
-
-TEST_CASE("at_2")
-{
-	vector_t<int> vector;
-	vector.push_back(3);
-	vector.push_back(7);
-
-	REQUIRE( vector.at(1) == 7 );
-}
-
-TEST_CASE("inc index1")
-{
-    vector_t<int> vector;
-	vector.push_back(1);
-    
-    REQUIRE_THROWS_AS( vector.at(1), std::out_of_range);
-}
-
-TEST_CASE("inc index2")
-{
-    vector_t<int> vector;
-	vector.push_back(1);
-    
-    REQUIRE_THROWS_AS( vector.at(10), std::out_of_range);
+    tree_t<int> tree1;
+    tree_t<int> tree2;
+    tree_t<int> tree3;
+    tree1.oper1('+',2);
+    tree1.oper1('+',1);
+    tree1.oper1('+',3);
+    tree2.oper1('+',2);
+    tree2.oper1('+',1);
+    tree2.oper1('+',3);
+    tree3.oper1('+',5);
+    tree3.oper1('+',2);
+    tree3.oper1('+',7);
+    REQUIRE(tree1==tree2);
+    REQUIRE(!(tree1==tree3));
 }
