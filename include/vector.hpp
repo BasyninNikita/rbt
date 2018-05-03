@@ -2,17 +2,34 @@
 #include <algorithm>
 #include <cassert>
 template <typename T>
-class vector_t
+class tree_t
 {
 private:
-	T * elements_;
-	std::size_t size_;
-	std::size_t capacity_;
+	struct node_t{
+		node_t * left;
+		node_t * right;
+		node_t * parent;
+		T value;
+		bool color;
+	};
 public:
-	vector_t();
+	tree_t(){
+		root_=nullptr;
+	}
+	~tree_t(){
+		destr(root_);
+	}
+	void destr(node_t* node) {
+    		if(node != nullptr)
+    		{
+     			destr(node->left);
+     			destr(node->right);
+			delete node;
+    		}
+  	}
 	vector_t(vector_t const & other);
 	vector_t & operator =(vector_t const & other);
-	~vector_t();
+	
 	std::size_t size() const;
 	std::size_t capacity() const;
 	T & at(std::size_t index);
