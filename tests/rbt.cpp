@@ -1,7 +1,7 @@
 #include <catch.hpp>
 #include <sstream>
 
-#include "vector.hpp"
+#include "rbt.hpp"
 
 TEST_CASE("creating vector")
 {
