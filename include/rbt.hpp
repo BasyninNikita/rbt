@@ -98,7 +98,7 @@ public:
 		if(op=='?')
 		{
 			if(find(value))
-			\	stream<<"true";
+				stream<<"true";
 			else stream<<"false";
 			
 		}
@@ -217,7 +217,7 @@ public:
     }
     
     void insert_case3(node_t * node){
-        node_t * unc = uncle(node), 
+        node_t * unc = uncle(node);
 	node_t * gp;
         if(unc != nullptr && unc->color == true){
             node->parent->color = false;
