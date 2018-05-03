@@ -12,7 +12,6 @@ TEST_CASE("creating tree")
 TEST_CASE("insert and print tree int")
 {
     tree_t <int> tree;
-     tree_t <int> tree;
     tree.insert(3);
 	tree.insert(4);
 	tree.insert(2);
@@ -23,6 +22,7 @@ TEST_CASE("insert and print tree int")
                         "--3\n"
                         "----2\n"
                         "------1\n" };
+	std::ostringstream ostream;
     tree.print(ostream,0,tree.root());
     REQUIRE(ostream.str() == result);
 }
@@ -82,7 +82,7 @@ TEST_CASE("new0")
                         	"----10\n"};
 	
 	std::ostringstream ostream;
-    	tree.print(ostream, tree.root(), 1);
+    	tree.print(ostream,0,tree.root());
     	REQUIRE(ostream.str() == result);
 }
 
@@ -106,6 +106,6 @@ TEST_CASE("new")
 			  	"--------5\n"};
 	
 	std::ostringstream ostream;
-    	tree.print(ostream, tree.root(), 1);
+    	tree.print(ostream,0,tree.root());
     	REQUIRE(ostream.str() == result);
 }
