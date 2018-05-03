@@ -66,22 +66,43 @@ public:
     	{
         	return root_;
     	}
+	bool find(T value) const{
+	node_t * node=root_;
+	while(node!=nullptr){
+		if (value==node->value)
+			return true;
+		else {
+			if (value<node->value){
+				node=node->left;	
+			}
+			else node=node->right;
+		}
+	}
+	return false;
+	}
+	void  oper1(char op, T value){
+	if(op=='+')
+	{
+		insert(value);
+	}
 	
-	bool find(T value) const
-	    {
-		if (root_ == nullptr)
+	else if(op=='q')
+	{
+		exit(0);
+	}
+	else std::cout<<"incorrect operation";	
+	}
+	void oper2(char op, T value,std::ostream& stream){
+		if(op=='?')
 		{
-		    return false;
+			if(find(value))
+			\	stream<<"true";
+			else stream<<"false";
+			
 		}
-		else
+		else if(op=='=')
 		{
-		    node_t* node = root_;
-		    while (node != nullptr)
-		    {
-			if (node->value == value) return true;
-			else if (node->value < value) node = node->right;
-			else if (node->value > value) node = node->left;
-		    }
-		    return false;
+			print(stream,0,root_);
 		}
-	    }
+		else std::cout<<"incorrect operation";	
+		}
