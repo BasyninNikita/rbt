@@ -119,3 +119,39 @@ public:
 		if(node->parent == gparent->left) return gparent->right;
 		else return gparent->left;
 	    }
+	void rotate_right(node_t * node){
+        	node_t * newnode = node->left;
+        	newnode->parent = node->parent;
+        	if(node->parent != nullptr){
+        	    if(node->parent->left == node){
+        	        node->parent->left = newnode;
+        	    }
+        	    else node->parent->right = newnode;
+        	}
+        	node->left = newnode->right;
+        	if(newnode->right != nullptr){
+        	    newnode->right->parent = node;
+        	}	
+        	if(node->parent == nullptr) root_ = newnode;
+        	node->parent = newnode;
+        	newnode->right = node;
+    	}
+	void rotate_left(node_t * node){
+        node_t * newnode = node->right;
+        newnode->parent = node->parent;
+        if(node->parent != nullptr){
+            if(node->parent->left == node){
+                node->parent->left = newnode;
+            }
+            else node->parent->right = newnode;
+        }
+        node->right = newnode->left;
+        if(newnode->left != nullptr){
+            newnode->left->parent = node;
+        }
+        if(node->parent == nullptr) root_ = newnode;
+        node->parent = newnode;
+        newnode->left = node;
+    }
+    
+    
