@@ -12,6 +12,8 @@ private:
 		T value;
 		bool color;
 	};
+private:
+	node_t * root_;
 public:
 	tree_t(){
 		root_=nullptr;
@@ -153,7 +155,7 @@ public:
         node->parent = newnode;
         newnode->left = node;
    	}
-    	void tree_t<T>:: insert(T value){
+    	void insert(T value){
 		node_t * node=new node_t;
 		node->right=nullptr;
 		node->left=nullptr;
