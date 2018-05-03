@@ -13,11 +13,13 @@ TEST_CASE("add")
     tree.insert(1);
     tree.insert(3);
     tree.insert(4);
+    tree.insert(5);
     std::string output {
-            "------4\n"
-        "---3\n"
-        "2\n"
-        "---1\n"
+            "------5\n"
+        "---4\n"
+        "3\n"
+        "---2\n"
+        "------1\n"
     };
     std::ostringstream ostream;
     tree.print(ostream,0,tree.root());
