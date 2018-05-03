@@ -116,10 +116,10 @@ public:
 	    }
 
 	    node_t * uncle(node_t * node){
-		node_t * gparent = gparent(node);
-		if(gparent == nullptr) return nullptr;
-		if(node->parent == gparent->left) return gparent->right;
-		else return gparent->left;
+		node_t * gp = gparent(node);
+		if(gp == nullptr) return nullptr;
+		if(node->parent == gp->left) return gp->right;
+		else return gp->left;
 	    }
 	void rotate_right(node_t * node){
         	node_t * newnode = node->left;
