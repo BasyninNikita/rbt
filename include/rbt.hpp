@@ -155,57 +155,63 @@ public:
         node->parent = newnode;
         newnode->left = node;
    	}
-    	void insert(T value){
-		node_t * node=new node_t;
-		node->right=nullptr;
-		node->left=nullptr;
-		node->value=value;
-		node->parent = nullptr;
-		node->color = false;
-		if (root_==nullptr){
-			root_=node;
-			return;
+    	void insert(T value)
+	    {
+		if (root_ == nullptr)
+		{
+		    root_ = new node_t;
+		    root_->parent = nullptr;
+		    root_->value = value;
+		    root_->left = nullptr;
+		    root_->right = nullptr;
+		    root_->color = false;
 		}
-		node_t * branch=root_;
-		while (branch!=nullptr){   
-			if(branch->value == value){
-			return;
-			}
-			else if(branch->value<value)
+		else
+		{
+		    node_t* branch = root_;
+		    while (branch != nullptr)
+		    {
+			if (value < branch->value)
 			{
-				if(branch->right!=nullptr){
-					branch->right = new node_t;
-					branch->right->parent = branch;
-					branch=branch->right;
-					branch->value = value;
-					branch->color = true;
-					branch->left = nullptr;
-					branch->right = nullptr;
-					insert_case1(branch);
-					return;
-				}
-				else {
-					branch->right=node;
-				}
+			    if (branch->left == nullptr)
+			    {
+				branch->left = new node_t;
+				branch->left->parent = branch;
+				branch = branch->left;
+				branch->value = value;
+				branch->color = true;
+				branch->left = nullptr;
+				branch->right = nullptr;
+				insert_case1(branch);
+				return;
+			    }
+			    else
+			    {
+				branch = branch->left;
+			    }
 			}
-			else if(branch->value>value){
-				if(branch->left != nullptr){
-					branch->left = new node_t;
-					branch->left->parent = branch;
-					branch=branch->left;
-					branch->value = value;
-					branch->color = true;
-					branch->left = nullptr;
-					branch->right = nullptr;
-					insert_case1(branch);
-					return;
-				}
-				else{
-					branch->left=node;
-				}
+			else if (value >= branch->value)
+			{
+			    if (branch->right == nullptr)
+			    {
+				branch->right = new node_t;
+				branch->right->parent = branch;
+				branch = branch->right;
+				branch->value = value;
+				branch->color = true;
+				branch->left = nullptr;
+				branch->right = nullptr;
+				insert_case1(branch);
+				return;
+			    }
+			    else
+			    {
+				branch = branch->right;
+			    }
 			}
+		    }
 		}
-	}
+	    }
 	 void insert_case1(node_t * node){
         	 if(node->parent == nullptr) node->color = false;
         	 else insert_case2(node);
