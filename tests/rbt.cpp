@@ -70,7 +70,7 @@ TEST_CASE("new")
 				"---3\n"
 				"------2\n"
 			        "---------1\n"
-			  }
+			  };
 	std::ostringstream ostream;
     	tree.print(ostream,0,tree.root());
     	REQUIRE(ostream.str() == result);
