@@ -12,11 +12,11 @@ TEST_CASE("creating tree")
 TEST_CASE("+")
 {
     tree_t <int> tree;
+    tree.insert(6);
+    tree.insert(8);
+    tree.insert(4);
     tree.insert(2);
-	tree.insert(4);
-	tree.insert(6);
-	tree.insert(10);
-	tree.insert(8);
+    tree.insert(10);
     std::string result{ "------10\n"
                         "---8\n"
                         "6\n"
@@ -57,19 +57,19 @@ TEST_CASE("new")
 	tree_t<int> tree {2 , 17 , 3 , 4 , 14 , 10 , 13 , 12 , 6 , 16 , 18 , 1 , 11 , 8};
 	
 	std::string result{	"---------18\n"
-                        	"---------17\n"
-                        	"---------16\n"
-                        	"----14\n"
-                        	"--------13\n"
-			  	"------12\n"
-			  	"----------11\n"
-			  	"--------10\n"
-			  	"----------8\n"
-			  	"6\n"
-			  	"------4\n"
-			  	"----3\n"
-			  	"------2\n"
-			  	"--------1\n"};
+				"------17\n"
+				"---------16\n"
+				"---14\n"
+				"---------13\n"
+				"------12\n"
+				"---------11\n"
+				"10\n"
+				"---------8\n"
+				"------6\n"
+				"---------4\n"
+				"---3\n"
+				"------2\n"
+			        "---------1\n"
 	
 	std::ostringstream ostream;
     	tree.print(ostream,0,tree.root());
