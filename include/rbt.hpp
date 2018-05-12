@@ -255,4 +255,15 @@ public:
         if(node ==node->parent->left && gp->left == node->parent) rotate_right(gp);
         else rotate_left(gp);
     }
+    bool tree_t<T>:: remove(T value){
+       if(root_ == nullptr){
+        return false;
+    }
+    else{
+        node_t* param1 = nullptr;
+        node_t* param2 = root_;
+        while(1){
+            if(param2->value == value){
+                break;
+	    }
 };
