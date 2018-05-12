@@ -255,15 +255,33 @@ public:
         if(node ==node->parent->left && gp->left == node->parent) rotate_right(gp);
         else rotate_left(gp);
     }
-    bool tree_t<T>:: remove(T value){
+    bool remove(T value){
        if(root_ == nullptr){
         return false;
-    }
-    else{
-        node_t* param1 = nullptr;
-        node_t* param2 = root_;
-        while(1){
-            if(param2->value == value){
-                break;
-	    }
+    	}
+    	else{
+        	node_t* param1 = nullptr;
+        	node_t* param2 = root_;
+        	while(1){
+            	if(param2->value == value){
+                	break;
+            	}
+            	else if(value > param2->value){
+                	param1 = param2;
+                	param2 = param2->right;
+            	}
+            	else if(value < param2->value){
+             	   param1 = param2;
+             	   param2 = param2->left;
+            	}
+		    if(param2 == nullptr){
+			return false;
+		    }
+		}
+		if(param2->left == nullptr && param2->right == nullptr){
+		    if(param2 == root_){
+			node_t* node = root_;
+			root_ = nullptr;
+			delete node;
+		    }
 };
