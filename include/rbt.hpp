@@ -284,4 +284,288 @@ public:
 			root_ = nullptr;
 			delete node;
 		    }
+		else
+                {
+                    if (param1->left == param2)
+                    {
+                        if (param2->color == false)
+                            delete_case1(param2);
+                        if (param2->parent->left == param2)
+                            param2->parent->left = nullptr;
+                        else if (param2->parent->right == param2)
+                            param2->parent->right = nullptr;
+                        delete param2;
+                    }
+                    if (param1->right == param2)
+                    {
+                        if (param2->color == false)
+                            delete_case1(param2);
+                        if (param2->parent->left == param2)
+                            param2->parent->left = nullptr;
+                        else if (param2->parent->right == param2)
+                            param2->parent->right = nullptr;
+                        delete param2;
+                    }
+                }
+            }
+            else if ((param2->left != nullptr && param2->right == nullptr)
+                || (param2->left == nullptr && param2->right != nullptr))
+            {
+                if (param2 == root_)
+                {
+                    node_t* node = root_;
+                    if (param2->left != nullptr)
+                    {
+                        root_ = param2->left;
+                        root_->parent = nullptr;
+                    }
+                    else if (param2->right != nullptr)
+                    {
+                        root_ = param2->right;
+                        root_->parent = nullptr;
+                    }
+                    delete node;
+                }
+                else
+                {
+                    if (param1->left == param2)
+                    {
+                        if (param2->left != nullptr)
+                        {
+                            param1->left = param2->left;
+                            param2->left->parent = param1;
+                            if (param2->color == false)
+                            {
+                                if (param1->left->color == true)
+                                    param1->left->color = false;
+                                else
+                                    delete_case1(param1->left);
+                            }
+                            delete param2;
+                        }
+                        else if (param2->right != nullptr)
+                        {
+                            param1->left = param2->right;
+                            param2->right->parent = param1;
+                            if (param2->color == false)
+                            {
+                                if (param1->left->color == true)
+                                    param1->left->color = false;
+                                else
+                                    delete_case1(param1->left);
+                            }
+                            delete param2;
+                        }
+                    }
+                    else if (param1->right == param2)
+                    {
+                        if (param2->left != nullptr)
+                        {
+                            param1->right = param2->left;
+                            param2->left->parent = param1;
+                            if (param2->color == false)
+                            {
+                                if (param1->right->color == true)
+                                    param1->right->color = false;
+                                else
+                                    delete_case1(param1->right);
+                            }
+                            delete param2;
+                        }
+                        else if (param2->right != nullptr)
+                        {
+                            param1->right = param2->right;
+                            param2->right->parent = param1;
+                            if (param2->color == false)
+                            {
+                                if (param1->right->color == true)
+                                    param1->right->color = false;
+                                else
+                                    delete_case1(param1->right);
+                            }
+                            delete param2;
+                        }
+                    }
+                }
+            }
+            else if (param2->left != nullptr && param2->right != nullptr)
+            {
+                node_t* node = param2;
+                param1 = param2;
+                param2 = param2->right;
+                if (param2->left == nullptr)
+                {
+                    if (param2->right == nullptr)
+                    {
+                        bool ncol = node->color;
+                        node->value = param2->value;
+                        node->color = param2->color;
+                        node->right = nullptr;
+                        delete param2;
+                        if (ncol == false)
+                        {
+                            if (node->color == true)
+                                node->color = false;
+                            else
+                                delete_case1(node);
+                        }
+                    }
+                    else
+                    {
+                        bool ncol = node->color;
+                        node->value = param2->value;
+                        node->color = param2->color;
+                        node->right = param2->right;
+                        param2->right->parent = node;
+                        delete param2;
+                        if (ncol == false)
+                        {
+                            if (node->color == true)
+                                node->color = false;
+                            else
+                                delete_case1(node);
+                        }
+                    }
+                }
+                else
+                {
+                    while (param2->left != nullptr)
+                    {
+                        param1 = param2;
+                        param2 = param2->left;
+                    }
+                    if (param2->right == nullptr)
+                    {
+                        bool ncol = node->color;
+                        node->value = param2->value;
+                        node->color = param2->color;
+                        param1->left = nullptr;
+                        delete param2;
+                        if (ncol == false)
+                        {
+                            if (node->color == true)
+                                node->color = false;
+                            else
+                                delete_case1(node);
+                        }
+                    }
+                    else
+                    {
+                        bool ncol = node->color;
+                        node->value = param2->value;
+                        node->color = param2->color;
+                        param1->left = param2->right;
+                        param2->right->parent = param1;
+                        delete param2;
+                        if (ncol == false)
+                        {
+                            if (node->color == true)
+                                node->color = false;
+                            else
+                                delete_case1(node);
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    node_t* sibling(node_t* n)
+    {
+        if (n == n->parent->left)
+            return n->parent->right;
+        else
+            return n->parent->left;
+    }
+
+    void delete_case1(node_t* n)
+    {
+        if (n->parent != nullptr)
+            delete_case2(n);
+    }
+
+    void delete_case2(node_t* n)
+    {
+        node_t* s = sibling(n);
+        if (s == nullptr)
+            return;
+        if (s->color == true)
+        {
+            n->parent->color = true;
+            s->color = false;
+            if (n == n->parent->left)
+                rotate_left(n->parent);
+            else
+                rotate_right(n->parent);
+        }
+        delete_case3(n);
+    }
+
+    void delete_case3(node_t* n)
+    {
+        node_t* s = sibling(n);
+        if (s->left == nullptr || s->right == nullptr)
+            return;
+        if ((n->parent->color == false) && (s->color == false) && (s->left->color == false)
+            && (s->right->color == false))
+        {
+            s->color = true;
+            delete_case1(n->parent);
+        }
+        else
+            delete_case4(n);
+    }
+
+    void delete_case4(node_t* n)
+    {
+        node_t* s = sibling(n);
+        if ((n->parent->color == true) && (s->color == false) && (s->left->color == false)
+            && (s->right->color == false))
+        {
+            s->color = true;
+            n->parent->color = false;
+        }
+        else
+            delete_case5(n);
+    }
+
+    void delete_case5(node_t* n)
+    {
+        node_t* s = sibling(n);
+        if (s->color == false)
+        {
+            if ((n == n->parent->left) && (s->right->color == false) && (s->left->color == true))
+            {
+                s->color = true;
+                s->left->color = false;
+                rotate_right(s);
+            }
+            else if ((n == n->parent->right) && (s->left->color == false)
+                && (s->right->color == true))
+            {
+                s->color = true;
+                s->right->color = false;
+                rotate_left(s);
+            }
+        }
+        delete_case6(n);
+    }
+
+    void delete_case6(node_t* n)
+    {
+        node_t* s = sibling(n);
+        s->color = n->parent->color;
+        n->parent->color = false;
+        if (n == n->parent->left)
+        {
+            s->right->color = false;
+            rotate_left(n->parent);
+        }
+        else
+        {
+            s->left->color = false;
+            rotate_right(n->parent);
+        }
+    }
 };
