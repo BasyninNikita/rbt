@@ -137,7 +137,7 @@ TEST_CASE("removing_with_black_bro_and_son")
 }
 TEST_CASE("removing(black_bro_red_son)")
 {
-    tree_t<int> tree {1 , 2 , 3 , 4 , 5 , 6 , 7 };
+    tree_t<int> tree {4 , 2 , 6 , 7 , 5 , 3 , 1 };
     tree.remove(6);
     std::string result{ "------7\n"
                         "---5\n"
