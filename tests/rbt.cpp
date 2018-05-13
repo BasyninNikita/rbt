@@ -75,3 +75,27 @@ TEST_CASE("new")
     	tree.print(ostream,0,tree.root());
     	REQUIRE(ostream.str() == result);
 }
+TEST_CASE("balance")
+{
+    tree_t<int> tree {6 , 4 , 8 , 2 , 10};
+    std::string result{ "------10\n"
+                        "---8\n"
+                        "6\n"
+                        "---4\n"
+                        "------2\n" };
+    std::ostringstream ostream;
+    tree.print(ostream,0,tree.root());
+    REQUIRE(ostream.str() == result);
+}
+TEST_CASE("removing")
+{
+    tree_t<int> tree {6 , 4 , 8 , 2 , 10};
+    tree_t.remove(8);
+    std::string result{ "---10\n"
+                        "6\n"
+                        "---4\n"
+                        "------2\n" };
+    std::ostringstream ostream;
+    tree.print(ostream,0,tree.root());
+    REQUIRE(ostream.str() == result);
+}
