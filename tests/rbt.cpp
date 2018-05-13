@@ -90,7 +90,7 @@ TEST_CASE("balance")
 TEST_CASE("removing")
 {
     tree_t<int> tree {6 , 4 , 8 , 2 , 10};
-    tree_t.remove(8);
+    tree.remove(8);
     std::string result{ "---10\n"
                         "6\n"
                         "---4\n"
