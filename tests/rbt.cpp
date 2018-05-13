@@ -141,14 +141,14 @@ TEST_CASE("removing(black_bro_red_right_son)")
     tree_t<int> tree {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
     tree.remove(3);
     tree.remove(2);
-    std::string result{ "------9\n"
-                     "---8\n"
-                     "------7\n"
-                     "6\n"
+    std::string result{ "---------9\n"
+                     "------8\n"
+                     "---------7\n"
+                     "---6\n"
                      "------5\n"
-                     "---4\n"
-                     "------1\n"
-                     "---------0\n"};
+                     "4\n"
+                     "---1\n"
+                     "------0\n"};
     std::ostringstream ostream;
     tree.print(ostream,0,tree.root());
     REQUIRE(ostream.str() == result);    
