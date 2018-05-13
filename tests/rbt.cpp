@@ -113,34 +113,10 @@ TEST_CASE("removing2")
 }
 TEST_CASE("removing_with_red_bro")
 {
-    tree_t<int> tree {8 , 4 , 6 , 2 , 10};
-    tree.remove(4);
-    std::string result{ "------10\n"
-                        "---8\n"
-                        "6\n"
-                        "---2\n" };
-    std::ostringstream ostream;
-    tree.print(ostream,0,tree.root());
-    REQUIRE(ostream.str() == result);
-}
-TEST_CASE("removing_with_black_bro_and_son")
-{
-    tree_t<int> tree {8 , 4 , 6 , 2 , 10};
-    tree.remove(4);
-    std::string result{ "------10\n"
-                        "---8\n"
-                        "6\n"
-                        "---2\n" };
-    std::ostringstream ostream;
-    tree.print(ostream,0,tree.root());
-    REQUIRE(ostream.str() == result);
-}
-TEST_CASE("removing(black_bro_red_son)")
-{
     tree_t<int> tree {4 , 2 , 6 , 7 , 5 , 3 , 1 };
     tree.remove(6);
-    std::string result{ "------7\n"
-                        "---5\n"
+    std::string result{ "---7\n"
+                        "------5\n"
                         "4\n"
 	    		"------3\n"
                         "---2\n" 
@@ -148,4 +124,27 @@ TEST_CASE("removing(black_bro_red_son)")
     std::ostringstream ostream;
     tree.print(ostream,0,tree.root());
     REQUIRE(ostream.str() == result);
+}
+TEST_CASE("removing_with_black_bro_and_son")
+{
+    tree_t<int> tree { 4 , 2 , 8 , 10};
+    tree.remove(10);
+    tree.remove(2);
+    std::string result{ "---8\n"
+                        "4\n"};
+    std::ostringstream ostream;
+    tree.print(ostream,0,tree.root());
+    REQUIRE(ostream.str() == result);
+}
+TEST_CASE("removing(black_bro_red_son)")
+{
+	tree_t<int> tree {8 , 4 , 6 , 2 , 10};
+    tree.remove(4);
+    std::string result{ "------10\n"
+                        "---8\n"
+                        "6\n"
+                        "---2\n" };
+    std::ostringstream ostream;
+    tree.print(ostream,0,tree.root());
+    REQUIRE(ostream.str() == result);    
 }
