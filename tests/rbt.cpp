@@ -103,10 +103,10 @@ TEST_CASE("removing2")
 {
     tree_t<int> tree {8 , 4 , 6 , 2 , 10};
     tree.remove(4);
-    std::string result{ "---10\n"
-                        "8\n"
-                        "---6\n"
-                        "------2\n" };
+    std::string result{ "------10\n"
+                        "---8\n"
+                        "6\n"
+                        "---2\n" };
     std::ostringstream ostream;
     tree.print(ostream,0,tree.root());
     REQUIRE(ostream.str() == result);
