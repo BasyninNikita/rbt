@@ -64,7 +64,7 @@ public:
         else
             return (false);
     }
-    auto operator==(tree_t& other) const
+    auto operator==(tree_t const & other) const
     {
         node_t* first;
         node_t* second;
