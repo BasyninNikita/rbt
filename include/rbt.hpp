@@ -144,7 +144,6 @@ public:
         else
             return nullptr;
     }
-
     node_t* uncle(node_t* node) const
     {
         node_t* gp = gparent(node);
