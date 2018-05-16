@@ -66,10 +66,8 @@ public:
     }
     auto operator==(tree_t const & other) const
     {
-        node_t* first;
-        node_t* second;
-        first = root_;
-        second = other.root();
+        node_t* first = root_;
+        node_t* second= other.root();
         return (ravnbranch(first, second));
     }
     tree_t(std::initializer_list<T> keys)
