@@ -147,12 +147,19 @@ public:
         else
             return nullptr;*/
     }
+    bool is_left_child(node_t * node)
+    {
+        if(!node || node ==root_ ) return false;
+        node_t * parent=node->parent;
+        if(parent->left==node) return true;
+        else return false;
+    }
     node_t* uncle(node_t* node) const
     {
         node_t* gp = gparent(node);
-        if (!gp )
-            return nullptr;
-        if (node->parent == gp->left)
+        if (!gp ) return nullptr;
+        //if (node->parent == gp->left)
+        if(is_left_child(node->parent))
             return gp->right;
         else
             return gp->left;
@@ -163,7 +170,8 @@ public:
         newnode->parent = node->parent;
         if (node->parent)
         {
-            if (node->parent->left == node)
+            //if (node->parent->left == node)
+            if(is_left_child(node))
             {
                 node->parent->left = newnode;
             }
@@ -186,7 +194,8 @@ public:
         newnode->parent = node->parent;
         if (node->parent)
         {
-            if (node->parent->left == node)
+            //if (node->parent->left == node)
+             if(is_left_child(node))
             {
                 node->parent->left = newnode;
             }
