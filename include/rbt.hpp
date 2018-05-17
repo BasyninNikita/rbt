@@ -205,14 +205,15 @@ public:
     }
     void insert(T value)
     {
+        node_t * node=new node_t;
+        node->value = value;
+        node->left = nullptr;
+        node->right = nullptr;
         if (!root_ )
         {
-            root_ = new node_t;
-            root_->parent = nullptr;
-            root_->value = value;
-            root_->left = nullptr;
-            root_->right = nullptr;
-            root_->color = false;
+            node->parent = nullptr;
+            node->color = false;
+            root_ = node;
         }
         else
         {
@@ -223,14 +224,9 @@ public:
                 {
                     if (!branch->left )
                     {
-                        branch->left = new node_t;
-                        branch->left->parent = branch;
-                        branch = branch->left;
-                        branch->value = value;
-                        branch->color = true;
-                        branch->left = nullptr;
-                        branch->right = nullptr;
-                        insert_case1(branch);
+                        branch->left = node;
+                        node->parent=branch;
+                        insert_case1(node);
                         return;
                     }
                     else
@@ -242,14 +238,9 @@ public:
                 {
                     if (!branch->right)
                     {
-                        branch->right = new node_t;
-                        branch->right->parent = branch;
-                        branch = branch->right;
-                        branch->value = value;
-                        branch->color = true;
-                        branch->left = nullptr;
-                        branch->right = nullptr;
-                        insert_case1(branch);
+                        branch->right = node;
+                        node->parent=branch;
+                        insert_case1(node);
                         return;
                     }
                     else
