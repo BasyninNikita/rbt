@@ -136,7 +136,9 @@ public:
     }
     node_t* gparent(node_t* node) const
     {
-        (node &&node-parent) ? return node->parent->parent : return node->parent->parent
+        node_t * n;
+        (node && node->parent) ? n= node->parent->parent :  n= nullptr;
+        return n;
         /*if (node && node->parent)
         {
             return node->parent->parent;
