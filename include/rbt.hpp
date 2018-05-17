@@ -93,12 +93,13 @@ public:
                 return true;
             else
             {
-                if (value < node->value)
+                value < node->value ? node = node->left : node=node->right;
+               /* if (value < node->value)
                 {
                     node = node->left;
                 }
                 else
-                    node = node->right;
+                    node = node->right;*/
             }
         }
         return false;
@@ -135,12 +136,13 @@ public:
     }
     node_t* gparent(node_t* node) const
     {
-        if (node && node->parent)
+        (node &&node-parent) ? return node->parent->parent : return node->parent->parent
+        /*if (node && node->parent)
         {
             return node->parent->parent;
         }
         else
-            return nullptr;
+            return nullptr;*/
     }
     node_t* uncle(node_t* node) const
     {
