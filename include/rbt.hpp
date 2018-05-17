@@ -70,14 +70,15 @@ public:
         node_t* second= other.root();
         return (ravnbranch(first, second));
     }
+    
     tree_t(std::initializer_list<T> keys)
     {
         root_ = nullptr;
-        int n = keys.size();
-        const int* _ptr = keys.begin();
-        for (int i = 0; i < n; i++)
+        //int n = keys.size();
+        //const int* _ptr = keys.begin();
+        for (auto i = keys.begin(); i < keys.end(); i++)
         {
-            insert(_ptr[i]);
+            insert(i);
         }
     }
     node_t* root() const
