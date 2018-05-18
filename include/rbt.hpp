@@ -145,7 +145,7 @@ public:
         else
             return nullptr;*/
     }
-    bool is_left_child(node_t * node)
+    bool is_left_child(node_t const * node)const 
     {
         if(!node || node ==root_ ) return false;
         node_t * parent=node->parent;
@@ -379,7 +379,7 @@ public:
                     }
                 }
             }
-            else if ((param2->left  && !param2->right == nullptr)
+            else if ((param2->left  && !param2->right)
                 || (!param2->left && param2->right ))
             {
                 if (param2 == root_)
